@@ -7,12 +7,9 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const TodoItem = (todo: Todo) => {
   const [completed, setCompleted] = useState(false);
-  const { dispatch } = useContext(GlobalContext);
-  console.log(completed)
-  const handleDelete = (id: string) : void => {
-    dispatch({
-      type: "DELETE_TRANSACTION", payload: id
-    });
+  const { deleteTodo } = useContext(GlobalContext);
+  const handleDelete = (id: string): void => {
+    deleteTodo(id);
   }
 
   return (
@@ -23,7 +20,7 @@ const TodoItem = (todo: Todo) => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          borderBottom: "1px solid #eeeeee",
+          borderBottom: "1px solid #f3c2c2",
           padding: "10px",
         },
       })}
@@ -32,8 +29,8 @@ const TodoItem = (todo: Todo) => {
         <Checkbox onChange={(e) => setCompleted(e.target.checked)}></Checkbox>
         <Title order={5}>{todo.text}</Title>
       </Group>
-      <a style={{ cursor: "pointer" }} onClick={() => handleDelete(todo.id)}>
-        <FontAwesomeIcon style={{ fontSize: "20px", color:"#474747"}} icon={faTrash} />
+      <a style={{ cursor: "pointer" }} onClick={() => handleDelete(todo._id)}>
+        <FontAwesomeIcon style={{ fontSize: "20px", color: "#474747" }} icon={faTrash} />
       </a>
     </Container>
   );

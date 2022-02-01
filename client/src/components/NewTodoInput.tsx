@@ -4,20 +4,17 @@ import { Todo } from '../utils/Interfaces'
 import { GlobalContext } from "../context/GlobalState"
 
 const NewTodoInput = () => {
-    const { dispatch } = useContext(GlobalContext);
+    const { addTodo } = useContext(GlobalContext);
     const [todo, setTodo] = useState<string>("");
 
     const submitTodo = (e: React.FormEvent) => {
         e.preventDefault();
         const newTodo = {
-            id: JSON.stringify(Math.floor(Math.random() * 1000)),
             text: todo,
             completed: false
         }
 
-        dispatch({
-            type: "ADD_TRANSACTION", payload: newTodo
-        });
+        addTodo(newTodo);
 
         setTodo("");
     }
@@ -30,7 +27,7 @@ const NewTodoInput = () => {
                     variant="filled"
                     placeholder="Take out the trash"
                     value={todo}
-                    onChange={(e) => { setTodo(e.target.value) }}
+                    onChange={(e: React.FormEvent<HTMLInputElement>) => { setTodo(e.currentTarget.value) }}
                 />
                 <Button
                     variant="light"
